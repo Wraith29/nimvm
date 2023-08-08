@@ -1,0 +1,4 @@
+packages/
+deps/
+*.exe
+*.code-workspace
