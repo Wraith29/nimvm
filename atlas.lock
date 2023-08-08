@@ -1,0 +1,24 @@
+{
+  "items": {
+    "packages": {
+      "dir": "packages",
+      "url": "https://github.com/nim-lang/packages",
+      "commit": "e52b18948feb1cca13ada322218aa19d03ef4fd4"
+    },
+    "zippy": {
+      "dir": "zippy",
+      "url": "https://github.com/guzba/zippy",
+      "commit": "a3fd6f0458ffdd7cbbd416be99f2ca80a7852d82"
+    }
+  },
+  "nimcfg": "",
+  "nimbleFile": {
+    "filename": "nimvm.nimble",
+    "content": "# Package\n\nversion       = \"0.1.0\"\nauthor        = \"Isaac Naylor\"\ndescription   = \"A new awesome nimble package\"\nlicense       = \"MIT\"\nsrcDir        = \"src\"\nbin           = @[\"nimvm\"]\n\n\n# Dependencies\n\nrequires \"nim >= 2\"\nrequires \"zippy\""
+  },
+  "hostOS": "windows",
+  "hostCPU": "amd64",
+  "nimVersion": "2.1.1",
+  "gccVersion": "11.1.0",
+  "clangVersion": "16.0.2"
+}
