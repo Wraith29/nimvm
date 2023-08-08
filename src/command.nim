@@ -4,6 +4,7 @@ type Command* = enum
   cmdSelect
   cmdList
   cmdUsage
+  cmdClean
 
 func `$`*(cmd: Command): string =
   return case cmd:
@@ -12,6 +13,7 @@ func `$`*(cmd: Command): string =
     of cmdSelect: "select"
     of cmdList: "list"
     of cmdUsage: "usage"
+    of cmdClean: "clean"
 
 proc toCommand*(cmd: string): Command =
   return if cmd == "list":
@@ -22,5 +24,7 @@ proc toCommand*(cmd: string): Command =
       cmdSelect
     elif cmd == "delete":
       cmdDelete
+    elif cmd == "clean":
+      cmdClean
     else:
       cmdUsage

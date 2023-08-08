@@ -1,7 +1,14 @@
-import argparser, asyncdispatch, cache,
-       httpclient, options, os, path,
-       sequtils, strformat, sugar,
-       zippy/tarballs, version
+import argparser
+import asyncdispatch
+import cache
+import httpclient
+import options
+import os
+import path
+import sequtils
+import strformat
+import sugar
+import version
 
 proc downloadVersion(version: Version): Future[Option[string]] {.async.} =
   let client = newAsyncHttpClient()
@@ -9,12 +16,9 @@ proc downloadVersion(version: Version): Future[Option[string]] {.async.} =
 
   let downloadUrl = version.getDownloadUrl()
   let contents = await client.getContent(downloadUrl)
-  writeFile(version.getInstallPath(), contents)
+  writeFile(version.getTarballPath(), contents)
 
   return none[string]()
-
-proc unzipVersion(version: Version): Future[Option[string]] {.async.} =
-  let versionPath = version.getInstallPath()
 
 proc installVersion(argParser: ArgParser, cache: Cache): Future[Option[string]] {.async.} =
   ## None is returned in the successful case
@@ -34,7 +38,7 @@ proc installVersion(argParser: ArgParser, cache: Cache): Future[Option[string]] 
   if dlMsg.isSome():
     return dlMsg 
 
-  await unzipVersion(version)
+  version.extract()
 
 proc listVersions(argParser: ArgParser, cache: Cache): Future[Option[string]] {.async.} =
   if argParser.flags.listInstalled:
@@ -59,6 +63,8 @@ proc main(): Future[void] {.async.} =
   let cache = await getCache(argParser)
 
   case argParser.command.get():
+  of cmdClean:
+    cleanInstallPath()
   of cmdInstall:
     let error = await installVersion(argParser, cache)
     if error.isNone():

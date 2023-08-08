@@ -15,3 +15,9 @@ proc initRootFolder*(): void =
   
   if not dirExists(VERSION_PATH):
     createDir(VERSION_PATH)
+
+proc cleanInstallPath*(): void =
+  if not dirExists(INSTALL_PATH): return
+
+  removeDir(INSTALL_PATH)
+  createDir(INSTALL_PATH)
